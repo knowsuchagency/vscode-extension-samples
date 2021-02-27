@@ -3,10 +3,9 @@
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 import * as vscode from 'vscode';
-import { RakeTaskProvider } from './rakeTaskProvider';
-import { CustomBuildTaskProvider } from './customTaskProvider';
+import { PDMTaskProvider } from './pdmTaskProvider';
 
-let rakeTaskProvider: vscode.Disposable | undefined;
+let pdmTaskProvider: vscode.Disposable | undefined;
 let customTaskProvider: vscode.Disposable | undefined;
 
 export function activate(_context: vscode.ExtensionContext): void {
@@ -15,15 +14,11 @@ export function activate(_context: vscode.ExtensionContext): void {
 		return;
 	}
 		
-	rakeTaskProvider = vscode.tasks.registerTaskProvider(RakeTaskProvider.RakeType, new RakeTaskProvider(workspaceRoot));
-	customTaskProvider = vscode.tasks.registerTaskProvider(CustomBuildTaskProvider.CustomBuildScriptType, new CustomBuildTaskProvider(workspaceRoot));
+	pdmTaskProvider = vscode.tasks.registerTaskProvider(PDMTaskProvider.PDMType, new PDMTaskProvider(workspaceRoot));
 }
 
 export function deactivate(): void {
-	if (rakeTaskProvider) {
-		rakeTaskProvider.dispose();
-	}
-	if (customTaskProvider) {
-		customTaskProvider.dispose();
+	if (pdmTaskProvider) {
+		pdmTaskProvider.dispose();
 	}
 }
